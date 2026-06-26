@@ -167,6 +167,7 @@
             gap: 2rem;
             z-index: 3;
             position: relative;
+            align-items: start;
         }
 
         .memory-card {
@@ -224,6 +225,25 @@
             font-size: 1rem;
             line-height: 1.5;
             color: #666;
+        }
+
+        /* Click Instruction */
+        .click-instruction {
+            text-align: center;
+            margin: 3rem auto;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #ff69b4;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         /* Final Message Section */
@@ -356,6 +376,34 @@
                 font-size: 2.5rem;
             }
         }
+        /* Initially hidden */
+        .memory-date {
+            font-family: 'Dancing Script', cursive;
+            color: #ff69b4;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.5s ease, max-height 0.5s ease;
+        }
+
+        .memory-caption {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #666;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.5s ease, max-height 0.5s ease;
+        }
+
+        /* Revealed on click */
+        .memory-card.revealed .memory-date,
+        .memory-card.revealed .memory-caption {
+            opacity: 1;
+            max-height: 500px;
+        }
     </style>
 </head>
 
@@ -395,16 +443,39 @@
 
     </div>
 
+    <div class="click-instruction">
+        ✨ I think there's something in the images 🤔 try clicking it 💌 ✨
+    </div>
+
     <section class="final-message">
         <h2>Hey Katrina 💕</h2>
         <p>I just want to take a moment to tell you how genuinely special you are. Not in the way people say it just to be nice but in the way that every time you're around, things feel a little lighter, a little brighter, a little more worth it.💕<br><br>
             You carry yourself with this quiet strength that I really admire. You're not just strong, you're kind while being strong, and that's rare.😊<br><br>
             You make the people around you better just by being you and I hope you never forget that on the hard days.🌸<br><br>
-            Whatever you're going through right now, I'm rooting for you not just because you deserve good things, but because you're someone worth rooting for.✨<br><br>
+            Whatever you're going through right now, I'm rooting for you because you deserve all good things and because you're worth rooting for.✨<br><br>
         </p>
         <p>Keep shining, Katrina. The world's a better place with you in it. 🌸✨</p>
         <a href="https://www.youtube.com/watch?v=jtKJGtn7Zxo" class="goodbye-btn">Happy Birthday! Hope this makes you happy 💝</a>
     </section>
+    <script>
+        let currentlyRevealed = null;
+    const allCards = document.querySelectorAll('.memory-card');
+
+    document.querySelectorAll('.memory-img').forEach(img => {
+        img.addEventListener('click', function() {
+            const card = this.closest('.memory-card');
+
+            if (currentlyRevealed === card) {
+                card.classList.remove('revealed');
+                currentlyRevealed = null;
+            } else {
+                allCards.forEach(c => c.classList.remove('revealed'));
+                card.classList.add('revealed');
+                currentlyRevealed = card;
+            }
+        });
+    });
+    </script>
 </body>
 
 </html>
