@@ -92,11 +92,37 @@
     </script>
 
     <script>
-        // Music Player Controls
+        // Music Player Controls with Persistent State
         const bgMusic = document.getElementById('bgMusic');
         const playPauseBtn = document.getElementById('playPauseBtn');
         const volumeSlider = document.getElementById('volumeSlider');
         const volumeLabel = document.getElementById('volumeLabel');
+
+        // Restore music state from sessionStorage
+        window.addEventListener('load', function() {
+            const savedTime = sessionStorage.getItem('musicTime');
+            const savedVolume = sessionStorage.getItem('musicVolume') || 50;
+            const wasPlaying = sessionStorage.getItem('musicPlaying') === 'true';
+
+            // Set volume
+            bgMusic.volume = savedVolume / 100;
+            volumeSlider.value = savedVolume;
+            volumeLabel.textContent = savedVolume + '%';
+
+            // Set playback position
+            if (savedTime) {
+                bgMusic.currentTime = parseFloat(savedTime);
+            }
+
+            // Auto-play if it was playing before, or show pause icon since autoplay is enabled
+            setTimeout(function() {
+                if (!bgMusic.paused) {
+                    playPauseBtn.textContent = '⏸️';
+                } else {
+                    playPauseBtn.textContent = '🎵';
+                }
+            }, 100);
+        });
 
         // Play/Pause button
         playPauseBtn.addEventListener('click', function() {
@@ -113,16 +139,14 @@
         volumeSlider.addEventListener('input', function() {
             bgMusic.volume = this.value / 100;
             volumeLabel.textContent = this.value + '%';
+            sessionStorage.setItem('musicVolume', this.value);
         });
 
-        // Set initial volume
-        bgMusic.volume = 0.5;
-        
-        // Update button state on page load
-        window.addEventListener('load', function() {
-            if (!bgMusic.paused) {
-                playPauseBtn.textContent = '⏸️';
-            }
+        // Save music state before leaving page
+        window.addEventListener('beforeunload', function() {
+            sessionStorage.setItem('musicTime', bgMusic.currentTime);
+            sessionStorage.setItem('musicPlaying', !bgMusic.paused);
+            sessionStorage.setItem('musicVolume', volumeSlider.value);
         });
     </script>
 </body>
