@@ -24,6 +24,11 @@
         text: "Hey my Katrina, crazy how we went from complete strangers to now being people that are sisters. Happy birthday bcs i look forward to more of em with you and for you ❤️ dont feel too alone, youre not, and dont feel like youre weird, its unique. Love you always Kat mwah mwah - Nachiii", 
         emoji: "🌟",
         gif: "gif2.gif"
+    },
+    { 
+        text: "Hey Kat, Happy Birthday! Hope u end up being a policewoman and follow what you wanna do! - kiki", 
+        emoji: "🌟",
+        gif: "gif2.gif"
     }
 ];
 
