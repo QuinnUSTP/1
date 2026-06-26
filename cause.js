@@ -19,6 +19,11 @@
         text: "Henlooo Katrina my twin burikat🫂, Happiest birthday to you and to your family, always remember to lab your parents cuz they are the one who pregnancy you! Always promote peace and order and take good care of yourself for we are to do kaykay sessions. HAHAHAHAHAHA I LOVE YOU MY FAV CHECHAAAAY😉 - Nabi Gwapa ", 
         emoji: "🌟",
         gif: "gif2.gif"
+    },
+    { 
+        text: "Hey my Katrina, crazy how we went from complete strangers to now being people that are sisters. Happy birthday bcs i look forward to more of em with you and for you ❤️ dont feel too alone, youre not, and dont feel like youre weird, its unique. Love you always Kat mwah mwah - Nachiii", 
+        emoji: "🌟",
+        gif: "gif2.gif"
     }
 ];
 
