@@ -7,10 +7,64 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="stylesheet" href="./cause.css">
     <style>
-       
+        /* Music Player Styles */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 105, 180, 0.9);
+            border-radius: 50px;
+            padding: 15px 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .music-player button {
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .music-player button:hover {
+            transform: scale(1.1);
+        }
+
+        .music-player input[type="range"] {
+            width: 100px;
+            cursor: pointer;
+            accent-color: white;
+        }
+
+        .volume-label {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
+    <!-- Music Player -->
+    <div class="music-player">
+        <button id="playPauseBtn" title="Play/Pause">🎵</button>
+        <input type="range" id="volumeSlider" min="0" max="100" value="50" title="Volume">
+        <span class="volume-label" id="volumeLabel">50%</span>
+    </div>
+    <audio id="bgMusic" loop autoplay>
+        <source src="./bgmusic.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     <div class="custom-cursor">
         <svg viewBox="0 0 24 24">
             <path fill="#ff69b4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
@@ -35,6 +89,41 @@
 
     <script src="cause.js">
        
+    </script>
+
+    <script>
+        // Music Player Controls
+        const bgMusic = document.getElementById('bgMusic');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeLabel = document.getElementById('volumeLabel');
+
+        // Play/Pause button
+        playPauseBtn.addEventListener('click', function() {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                playPauseBtn.textContent = '⏸️';
+            } else {
+                bgMusic.pause();
+                playPauseBtn.textContent = '🎵';
+            }
+        });
+
+        // Volume control
+        volumeSlider.addEventListener('input', function() {
+            bgMusic.volume = this.value / 100;
+            volumeLabel.textContent = this.value + '%';
+        });
+
+        // Set initial volume
+        bgMusic.volume = 0.5;
+        
+        // Update button state on page load
+        window.addEventListener('load', function() {
+            if (!bgMusic.paused) {
+                playPauseBtn.textContent = '⏸️';
+            }
+        });
     </script>
 </body>
 </html>
